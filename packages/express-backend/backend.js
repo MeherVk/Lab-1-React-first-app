@@ -4,6 +4,8 @@ import express from "express";
 const app = express();
 const port = 8000;
 
+app.use(express.json());
+
 const users = {
   users_list: [
     {
@@ -32,6 +34,11 @@ const users = {
       job: "Bartender"
     }
   ]
+};
+
+const addUser = (user) => {
+  users["users_list"].push(user);
+  return user;
 };
 
 const findUserById = (id) =>
@@ -64,8 +71,11 @@ app.get("/users/:id", (req, res) => {
   }
 });
 
-
-app.use(express.json());
+app.post("/users", (req, res) => {
+  const userToAdd = req.body;
+  addUser(userToAdd);
+  res.send();
+});
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
