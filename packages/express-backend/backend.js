@@ -40,6 +40,7 @@ const users = {
 
 //Helper functs 
 const addUser = (user) => {
+  user["id"] = generateId();
   users["users_list"].push(user);
   return user;
 };
@@ -67,6 +68,9 @@ const findUserByNameAndJob = (name, job) => {
   );
 };
 
+const generateId = () => {
+    return Math.floor(Math.random() * 1000).toString();
+}
 
 //Routes
 app.delete("/users/:id", (req, res) => {
